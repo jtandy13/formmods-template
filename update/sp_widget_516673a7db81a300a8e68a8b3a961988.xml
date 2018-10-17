@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $rootScope, $location, FmContainers) {
+  /* widget controller */
+  var c = this;
+  c.formInitialized = false;
+  c.deregisterUIActionListener = null;
+
+  c.setCurrentSectionTo = FmContainers.setCurrentSectionTo;
+  c.getCurrentSection = FmContainers.getCurrentSection;
+  c.isFirstSection = FmContainers.isFirstSection;
+  c.isLastSection = FmContainers.isLastSection;
+  //c.isLastSection = FmContainers.isLastSection;
+  
+	$scope.$on('spModel.gForm.initialized', function(e, g_form) {
+		c.g_form = g_form;
+    FmContainers.init(c.data.form._sections);
+    c.formInitialized = true;
+  });
+  
+  c.submit = function() {
+    console.log(getPrimaryAction().action_name);
+    c.g_form.submit(getPrimaryAction().action_name);
+    deregisterUIActionListener = $rootScope.$on("spModel.uiActionComplete", successHandler);
+  }
+
+  function getPrimaryAction() {
+    var primaryActions = $scope.data.form._ui_actions.filter(function(action) {
+      return action.primary;
+    });		
+    return (primaryActions.length) ? primaryActions[0] : null;
+  }
+
+  function successHandler(e, result) {
+    deregisterUIActionListener();
+    navigateToSuccessPage();
+  }
+
+  function navigateToSuccessPage() {
+    $location.search({
+      //'id': c.options.success_page || $location.search().id,
+      'id': 'ticket',
+      'table': 'incident',
+      'sys_id': '1c741bd70b2322007518478d83673af3'
+      //'table': c.options.table || $location.search().table,
+      //'sys_id': $location.search().sys_id
+    });
+  }
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>// Loading spinner
+.fm-loading {
+  height: 100%;
+  min-height: 400px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  svg {
+    width: 150px;
+    height: 150px;
+  }
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>modded-form</id>
+        <internal>false</internal>
+        <link/>
+        <name>modded-form</name>
+        <option_schema>[{"name":"table","section":"other","label":"table","type":"string"},{"name":"view","section":"other","label":"view","type":"string"},{"name":"record","section":"other","label":"record","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function($scope) {
+  data.view = options.view || $sp.getParameter('view');
+	data.sysId = options.record || $sp.getParameter('sys_id') || '-1';
+	data.table = options.table || $sp.getParameter('table');
+	data.form = $sp.getForm(data.table, data.sysId, '', data.view);
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>james.tandy@snc</sys_created_by>
+        <sys_created_on>2018-10-16 02:34:11</sys_created_on>
+        <sys_id>516673a7db81a300a8e68a8b3a961988</sys_id>
+        <sys_mod_count>41</sys_mod_count>
+        <sys_name>modded-form</sys_name>
+        <sys_package display_value="formmods" source="x_snc_formmods">c94633a3db81a300a8e68a8b3a961980</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="formmods">c94633a3db81a300a8e68a8b3a961980</sys_scope>
+        <sys_update_name>sp_widget_516673a7db81a300a8e68a8b3a961988</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-10-17 01:49:05</sys_updated_on>
+        <template><![CDATA[<div>
+  <!-- Loading spinner -->
+  <div class="fm-loading" ng-if="!c.formInitialized">
+    <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" stroke="#000">
+      <g fill="none" fill-rule="evenodd" stroke-width="2">
+        <circle cx="22" cy="22" r="1">
+          <animate attributeName="r" begin="0s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite"/>
+          <animate attributeName="stroke-opacity" begin="0s" dur="1.8s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="22" cy="22" r="1">
+          <animate attributeName="r" begin="-0.9s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite"/>
+          <animate attributeName="stroke-opacity" begin="-0.9s" dur="1.8s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite"/>
+        </circle>
+      </g>
+    </svg>
+  </div>
+	<sp-model form-model="::c.data.form"
+            mandatory="true"
+            template-url="fm-form"
+            ng-if="::c.data.form"></sp-model>
+  <div class="container-fluid" ng-if="c.formInitialized">
+    <button class="btn default" ng-show="!c.isFirstSection()" ng-click="c.setCurrentSectionTo(c.getCurrentSection() - 1)">Back</button>
+    <button class="btn default" ng-show="!c.isLastSection()" ng-click="c.setCurrentSectionTo(c.getCurrentSection() + 1)">Next</button>
+    <button class="btn success" ng-show="true" ng-click="c.submit()">Submit</button>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

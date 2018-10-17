@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">696673a7db81a300a8e68a8b3a961990</sp_column>
+        <sp_widget display_value="modded-form">516673a7db81a300a8e68a8b3a961988</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>james.tandy@snc</sys_created_by>
+        <sys_created_on>2018-10-16 02:34:12</sys_created_on>
+        <sys_id>2966b3a7db81a300a8e68a8b3a961959</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="formmods" source="x_snc_formmods">c94633a3db81a300a8e68a8b3a961980</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="formmods">c94633a3db81a300a8e68a8b3a961980</sys_scope>
+        <sys_update_name>sp_instance_2966b3a7db81a300a8e68a8b3a961959</sys_update_name>
+        <sys_updated_by>james.tandy@snc</sys_updated_by>
+        <sys_updated_on>2018-10-16 02:34:12</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=2966b3a7db81a300a8e68a8b3a961959"/>
+</record_update>

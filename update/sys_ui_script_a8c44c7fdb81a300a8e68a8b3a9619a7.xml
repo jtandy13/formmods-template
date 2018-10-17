@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_script">
+    <sys_ui_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description/>
+        <global>false</global>
+        <name>x_snc_formmods.Service.FmContainers</name>
+        <script><![CDATA[FmUtil.service('FmContainers', function FmContainers(){
+	'use strict';
+	
+	var form_containers = [];
+	var currentSection = 0;
+	
+	return {
+		init: init,
+    setCurrentSectionTo: setCurrentSectionTo,
+    getCurrentSection: getCurrentSection,
+    isFirstSection: isFirstSection,
+    isLastSection: isLastSection,
+    getContainers: getContainers
+  };
+  
+  function getCurrentSection() {
+    return currentSection;
+  }
+
+  function isFirstSection() {
+    return currentSection === 0;
+  }
+
+  function isLastSection() {
+    return currentSection === form_containers.length - 1;
+  }
+  
+  /**
+   * 
+   * @param {number} sectionSelectionNum 
+   */
+	function setCurrentSectionTo(sectionSelectionNum) {
+		currentSection = sectionSelectionNum;
+	}
+  
+  /** 
+   * Group containers that do not have caption with the 
+   * previous container.
+   * @param {array} c
+   */
+	function regroupContainers(c) {
+		var newCGroupings = c.reduce(function(acc, cv, ci, arr) {
+			if(!cv.caption && !cv.captionDisplay) {
+				acc[acc.length - 1].push(cv);
+			} else {
+				acc.push([cv]);
+			}
+			return acc;
+		}, []);
+		return newCGroupings;
+	}
+	
+	function init(containers) {
+		//console.log(containers);
+		form_containers = regroupContainers(containers);
+	}
+  
+  /** Wrapper function to filter a list of  */
+	function getContainers() {
+		return form_containers[currentSection];
+	}
+});]]></script>
+        <script_name>Service.FmContainers</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>james.tandy@snc</sys_created_by>
+        <sys_created_on>2018-10-16 03:37:41</sys_created_on>
+        <sys_id>a8c44c7fdb81a300a8e68a8b3a9619a7</sys_id>
+        <sys_mod_count>44</sys_mod_count>
+        <sys_name>x_snc_formmods.Service.FmContainers</sys_name>
+        <sys_package display_value="formmods" source="x_snc_formmods">c94633a3db81a300a8e68a8b3a961980</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="formmods">c94633a3db81a300a8e68a8b3a961980</sys_scope>
+        <sys_update_name>sys_ui_script_a8c44c7fdb81a300a8e68a8b3a9619a7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-10-17 00:34:12</sys_updated_on>
+        <ui_type>1</ui_type>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+</record_update>

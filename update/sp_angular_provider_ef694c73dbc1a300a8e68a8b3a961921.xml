@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_angular_provider">
+    <sp_angular_provider action="INSERT_OR_UPDATE">
+        <name>formModContainers</name>
+        <script><![CDATA[function formModContainers(FmContainers) {
+	'use strict';
+
+	return {
+		controller: formModCtrl
+	};
+
+	function formModCtrl($scope, FmContainers) {
+		$scope.getContainers = FmContainers.getContainers;
+	}
+}]]></script>
+        <sys_class_name>sp_angular_provider</sys_class_name>
+        <sys_created_by>james.tandy@snc</sys_created_by>
+        <sys_created_on>2018-10-16 04:00:30</sys_created_on>
+        <sys_id>ef694c73dbc1a300a8e68a8b3a961921</sys_id>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>formModContainers</sys_name>
+        <sys_package display_value="formmods" source="x_snc_formmods">c94633a3db81a300a8e68a8b3a961980</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="formmods">c94633a3db81a300a8e68a8b3a961980</sys_scope>
+        <sys_update_name>sp_angular_provider_ef694c73dbc1a300a8e68a8b3a961921</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-10-17 00:12:26</sys_updated_on>
+        <type>directive</type>
+    </sp_angular_provider>
+</record_update>
